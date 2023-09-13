@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace JadCentral.Automation.Shared.Config
+namespace Automation.Shared.Config
 {
     public static class ConfigurationManager
     {

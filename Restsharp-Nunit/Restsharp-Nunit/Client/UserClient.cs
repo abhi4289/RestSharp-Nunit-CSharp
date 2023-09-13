@@ -1,5 +1,5 @@
-﻿using JadCentral.Automation.Shared.Clients.JadCentral;
-using JadCentral.Automation.Shared.Config;
+﻿using Automation.Shared.Clients;
+using Automation.Shared.Config;
 using RestSharp;
 using Restsharp_Nunit.Entities.Response;
 
@@ -13,7 +13,8 @@ namespace Restsharp_Nunit.Client
         {
             string url = ConfigurationManager.AppSetting[GetUsersJsonPath];
             RestRequest restRequest = new(GetFullUrl(url,page.ToString()), Method.Post);
-            string resp = ExecuteRequest(restRequest);
+            UsersResponse resp = ExecuteRequest<UsersResponse>(restRequest);
+            return resp;
         }
     }
 }

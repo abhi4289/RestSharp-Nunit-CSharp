@@ -1,24 +1,28 @@
-﻿using JadCentral.Automation.Shared.Config;
-using RestSharp;
+﻿using RestSharp;
 using System.Text.Json;
-using System.Net;
-using JadCentral.Automation.Shared.Entities.Response;
+using Automation.Shared.Entities.Response;
+using Automation.Shared.Config;
 
-namespace JadCentral.Automation.Shared.Clients.JadCentral
+namespace Automation.Shared.Clients
 {
     public class BaseClient
     {
         protected readonly RestClient Client;
-        private const string PingEndpointJsonPath = "Endpoints:jadCentral:ping";
 
         public BaseClient()
         {
-            Client = new RestClient();
+            Client = new RestClient(ConfigurationManager.AppSetting["BaseUrl"]);
         }
 
         public T ExecuteRequest<T>(RestRequest request) where T : BaseResponse, new()
         {
-            
+            RestResponse response = Client.Execute<T>(request);
+            Console.WriteLine($"Url : {request.Resource} ======> Response:  {response.Content}");
+
+            T resp = JsonSerializer.Deserialize<T>(response.Content);
+
+            resp.ResponseCode = (int)response.StatusCode;
+            return resp;
         }
 
         protected string GetFullUrl(string url, params string[] args)

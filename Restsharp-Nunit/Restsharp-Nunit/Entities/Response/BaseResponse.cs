@@ -1,4 +1,4 @@
-﻿namespace JadCentral.Automation.Shared.Entities.Response
+﻿namespace Automation.Shared.Entities.Response
 {
     public class BaseResponse
     {
