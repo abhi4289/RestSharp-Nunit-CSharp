@@ -12,13 +12,26 @@ namespace Restsharp_Nunit
         }
 
         [Test]
-        public void Test1()
+        public void Getusers()
         {
             UserClient userClient = new();
             UsersResponse response = userClient.GetUsers(1);
 
-            Assert.AreEqual(response.data[0].email, "george.bluth@reqres.in");
+            Assert.That(response.data[0].email, Is.EqualTo("george.bluth@reqres.in"));
 
+        }
+
+        [Test]
+        public void CreateUser()
+        {
+            UserClient userClient = new();
+            CreateUserResponse response = userClient.CreateUser("Abhishek", "SDET");
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.name, Is.EqualTo("Abhishek"));
+                Assert.That(response.job, Is.EqualTo("SDET"));
+                Assert.That(response.id, Is.Not.Null);
+            });
         }
     }
 }

@@ -1,6 +1,7 @@
 {
   "BaseUrl": "https://reqres.in",
   "Endpoints": {
-    "get_users": "/api/users?page=${1}"
+    "get_users": "/api/users?page=${1}",
+    "create_user": "api/users"
   }
 }
