@@ -19,8 +19,11 @@ namespace Automation.Shared.Clients
             RestResponse response = Client.Execute<T>(request);
             Console.WriteLine($"Url : {request.Resource} ======> Response:  {response.Content}");
 
-            T resp = JsonSerializer.Deserialize<T>(response.Content);
-
+            T resp;
+            if (response.Content.Length > 0)
+                resp = JsonSerializer.Deserialize<T>(response.Content);
+            else
+                resp = new T();
             resp.ResponseCode = (int)response.StatusCode;
             return resp;
         }
